@@ -68,9 +68,93 @@ app.get('/country', function (req, res) {
   MongoClient.connect(url, {useUnifiedTopology: true}, function(err, db) {
     if (err) throw err;
     var dbo = db.db("local");
-    dbo.collection("pivot").find({_class: "country", _id: req.query.id}).toArray(function(err, result) {
+    dbo.collection("pivot").find({_class: "province", country_id: req.query.id}).toArray(function(err, result) {
       if (err) throw err;
       db.close();
+      res.send(result)
+    });
+  });
+});
+
+app.get('/province', function (req, res) {
+  console.log(req.query);
+  MongoClient.connect(url, {useUnifiedTopology: true}, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("local");
+    dbo.collection("pivot").find({_class: "location", province_id: req.query.id}).toArray(function(err, result) {
+      if (err) throw err;
+      db.close();
+      // console.log(JSON.stringify(result));
+      res.send(result)
+    });
+  });
+});
+
+app.get('/location', function (req, res) {
+  console.log(req.query);
+  MongoClient.connect(url, {useUnifiedTopology: true}, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("local");
+    dbo.collection("pivot").find({_class: "site", location_id: req.query.id}).toArray(function(err, result) {
+      if (err) throw err;
+      db.close();
+      console.log(JSON.stringify(result));
+      res.send(result)
+    });
+  });
+});
+
+app.get('/site', function (req, res) {
+  console.log(req.query);
+  MongoClient.connect(url, {useUnifiedTopology: true}, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("local");
+    dbo.collection("pivot").find({_class: "area", site_id: req.query.id}).toArray(function(err, result) {
+      if (err) throw err;
+      db.close();
+      console.log(JSON.stringify(result));
+      res.send(result)
+    });
+  });
+});
+
+app.get('/area', function (req, res) {
+  console.log(req.query);
+  MongoClient.connect(url, {useUnifiedTopology: true}, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("local");
+    dbo.collection("pivot").find({_class: "cell", area_id: req.query.id}).toArray(function(err, result) {
+      if (err) throw err;
+      db.close();
+      console.log(JSON.stringify(result));
+      res.send(result)
+    });
+  });
+});
+
+app.get('/cell', function (req, res) {
+  console.log(req.query);
+  MongoClient.connect(url, {useUnifiedTopology: true}, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("local");
+    dbo.collection("pivot").find({_class: "sensor", cell_id: req.query.id}).toArray(function(err, result) {
+      if (err) throw err;
+      db.close();
+      console.log(JSON.stringify(result));
+      res.send(result)
+    });
+  });
+});
+
+app.get('/sensor', function (req, res) {
+  console.log(req.query);
+  MongoClient.connect(url, {useUnifiedTopology: true}, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("local");
+    dbo.collection("pivot").find({_class: "sensor", sensor_id: req.query.id}).toArray(function(err, result) {
+      if (err) throw err;
+      db.close();
+      console.log(JSON.stringify(result));
       res.send(result)
     });
   });
